@@ -1,0 +1,51 @@
+import time
+import datetime
+import random
+
+print("=== sukkarcd Profile Generator ===\n")
+
+name = input("Enter name: ").strip().title()
+
+while True:
+    age = int(input("Enter age: "))
+    if age > 120 or age <= 0:
+        print('invalid age')
+        continue
+    break
+
+role = input("Enter role: ").strip().title()
+
+
+def load(cycle):
+    while cycle != 0:
+        print('\rloading .  ', end='')
+        time.sleep(1)
+        print('\rloading .. ', end='')
+        time.sleep(1)
+        print('\rloading ...', end='')
+        time.sleep(1)
+        cycle -= 1
+
+
+load(1)
+id = f'SKR-{random.randint(1000, 9999)}'
+born = datetime.datetime.now().year - age
+token = name[:2] + str(born)[-2:] + \
+    ''.join(random.sample("abcdef0123456789", 4))
+
+# Build the card directly with raw variables
+card = f"""
+╔{'═'*40}╗
+║ {'ID Card':<38} ║
+╠{'═'*40}╣
+║ {f'Name: {name}':<38} ║
+║ {f'Age: {age}':<38} ║
+║ {f'Born: {born}':<38} ║
+║ {f'Role: {role}':<38} ║
+║ {f'ID: {id}':<38} ║
+║ {f'Token: {token}':<38} ║
+╚{'═'*40}╝
+"""
+print(card)
+with open("id.txt", "a", encoding="utf-8") as f:
+    print(card, file=f)
